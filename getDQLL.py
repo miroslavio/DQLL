@@ -1,3 +1,4 @@
+from dqllChecks import *
 import argparse
 from rat import ratdb
 from subprocess import call
@@ -17,7 +18,7 @@ def readDQLLTable(firstRun, lastRun):
     ### READ THE TABLES AND DELETE(optional) ###
     filename = filename[:-4]
     data_file = open(filename, "r")
-    data = json.load(data_file)
+    #data = json.load(data_file) <---ERROR due to mutiple tables in one file...
     #print "Start time: ", data["start_time"]
     #print "End time: ", data["end_time"]
     #print "Duration: ", data["duration_seconds"]
