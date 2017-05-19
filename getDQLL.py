@@ -22,15 +22,14 @@ def readDQLLTable(firstRun, lastRun):
     data = []
     for line in data_file:
         data.append(json.loads(line))
-    print data[0]["start_time"]
-    #for i in data:
-     #   print "Start time: ", data[i]["start_time"]
-      #  print "End time: ", data[i]["end_time"]
-       # print "Duration: ", data[i]["duration_seconds"]
-        #print "Crate_hv_status_a: ", data[i]["crate_hv_status_a"]
-        #print "Crate_hv_status_b: ", data[i]["crate_16_hv_status_b"]
-        #print "Crate_hv_dac_a: ", data[i]["crate_hv_dac_a"]
-        #print "Crate_16_hv_dac_b: ", data[i]["crate_16_hv_dac_b"]
+    for entry in data:
+        print "Start time: ", entry["start_time"]
+        print "End time: ", entry["end_time"]
+        print "Duration: ", entry["duration_seconds"]
+        print "Crate_hv_status_a: ", entry["crate_hv_status_a"]
+        print "Crate_hv_status_b: ", entry["crate_16_hv_status_b"]
+        print "Crate_hv_dac_a: ", entry["crate_hv_dac_a"]
+        print "Crate_16_hv_dac_b: ", entry["crate_16_hv_dac_b"]
     call(['rm', filename]) #delete table
     
 ### Get run range from user (from Lisa)###
