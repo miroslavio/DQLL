@@ -1,3 +1,4 @@
+import sys
 from dqllChecks import *
 import argparse
 from rat import ratdb
@@ -18,15 +19,19 @@ def readDQLLTable(firstRun, lastRun):
     ### READ THE TABLES AND DELETE(optional) ###
     filename = filename[:-4]
     data_file = open(filename, "r")
-    #data = json.load(data_file) <---ERROR due to mutiple tables in one file...
-    #print "Start time: ", data["start_time"]
-    #print "End time: ", data["end_time"]
-    #print "Duration: ", data["duration_seconds"]
-    #print "Crate_hv_status_a: ", data["crate_hv_status_a"]
-    #print "Crate_hv_status_b: ", data["crate_16_hv_status_b"]
-    #print "Crate_hv_dac_a: ", data["crate_hv_dac_a"]
-    #print "Crate_16_hv_dac_b: ", data["crate_16_hv_dac_b"]
-    #call(['rm', filename]) #delete table
+    data = []
+    for line in data_file:
+        data.append(json.loads(line))
+    print data[0]["start_time"]
+    #for i in data:
+     #   print "Start time: ", data[i]["start_time"]
+      #  print "End time: ", data[i]["end_time"]
+       # print "Duration: ", data[i]["duration_seconds"]
+        #print "Crate_hv_status_a: ", data[i]["crate_hv_status_a"]
+        #print "Crate_hv_status_b: ", data[i]["crate_16_hv_status_b"]
+        #print "Crate_hv_dac_a: ", data[i]["crate_hv_dac_a"]
+        #print "Crate_16_hv_dac_b: ", data[i]["crate_16_hv_dac_b"]
+    call(['rm', filename]) #delete table
     
 ### Get run range from user (from Lisa)###
 if __name__=="__main__":
