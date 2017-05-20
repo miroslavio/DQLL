@@ -33,5 +33,5 @@ if __name__=="__main__":
 
     print "Reading DQLL tables for runs %i-%i" % (firstRun, lastRun)
     downloadDQLL(firstRun, lastRun)
-    readTable(firstRun, lastRun)
+    readTables(firstRun, lastRun)
     
