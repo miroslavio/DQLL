@@ -1,37 +1,8 @@
 import sys
-from dqllChecks import *
+from readTables import readTables
+from downloadTables import downloadDQLL
 import argparse
-from rat import ratdb
-from subprocess import call
-import json
 
-def readDQLLTable(firstRun, lastRun):
-    
-    ### DOWNLOAD THE TABLES ###
-    runs = range(firstRun, lastRun+1)
-    db = ratdb.RATDBConnector(server="postgres://snoplus:dontestopmenow@pgsql.snopl.us:5400/ratdb")
-    db.dump_table(obj_type="DQLL", runs=runs)
-        
-    ### UNZIP THE TABLES ###
-    filename = 'DQLL_'+str(firstRun)+'-'+str(lastRun)+'.ratdb.bz2'
-    call('bunzip2 ' + filename, shell=True)
-    
-    ### READ THE TABLES AND DELETE(optional) ###
-    filename = filename[:-4]
-    data_file = open(filename, "r")
-    data = []
-    for line in data_file:
-        data.append(json.loads(line))
-    for entry in data:
-        print "Start time: ", entry["start_time"]
-        print "End time: ", entry["end_time"]
-        print "Duration: ", entry["duration_seconds"]
-        print "Crate_hv_status_a: ", entry["crate_hv_status_a"]
-        print "Crate_hv_status_b: ", entry["crate_16_hv_status_b"]
-        print "Crate_hv_dac_a: ", entry["crate_hv_dac_a"]
-        print "Crate_16_hv_dac_b: ", entry["crate_16_hv_dac_b"]
-    call(['rm', filename]) #delete table
-    
 ### Get run range from user (from Lisa)###
 if __name__=="__main__":
     parser = argparse.ArgumentParser()
@@ -61,4 +32,6 @@ if __name__=="__main__":
         sys.exit(1)
 
     print "Reading DQLL tables for runs %i-%i" % (firstRun, lastRun)
-    readDQLLTable( firstRun, lastRun )
+    downloadDQLL(firstRun, lastRun)
+    readTable(firstRun, lastRun)
+    
