@@ -10,8 +10,8 @@ def initRunlistFile(firstRun, lastRun):
 
     # Print list header
     runlistFile.write("\n")
-    runlistFile.write("Run no |\n" + \
-                      "-------|\n")
+    runlistFile.write(" Run no | Pass |\n" + \
+                      "--------|------|\n")
     return runlistFile
 
 def processRun(table, runlistFile):
@@ -24,9 +24,12 @@ def processRun(table, runlistFile):
     crate16HVstatusB = table[0]["data"]["crate_16_hv_status_b"]
     crateHVdacA = table[0]["data"]["crate_hv_dac_a"]
     crate16HVdacB = table[0]["data"]["crate_16_hv_dac_b"]
-
-    runlistFile.write("%s\n" %str(runNumber))
     
+    if durationCheck(duration) and crateHVstatusAcheck(crateHVstatusA) and crate16HVstatusBcheck(crate16HVstatusB) and crateHVdacAcheck(crateHVdacA) and crate16HVdacBcheck(crate16HVdacB):
+        runlistFile.write(" %s" %str(runNumber) + " |  1   \n")
+    else:
+        runlistFile.write(" %s" %str(runNumber) + " |  0   \n")
+        
 def dqllPassFailList(firstRun, lastRun):
 
     # Open and initiate run-list file:

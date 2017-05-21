@@ -5,10 +5,10 @@ def startendTime(start, end):
     return passChecks
 
 def durationCheck(duration):
-    passChecks = 0
     if ( duration >= 1800 ):
-        passChecks = 1
-    return passChecks
+        return 1
+    else:
+        return 0
 
 def crateHVstatusAcheck(array):
     passChecks = 1
@@ -17,21 +17,18 @@ def crateHVstatusAcheck(array):
             passChecks = 0
     return passChecks
 
-def crate16HVstatusB(owlHVon):
-    passChecks = 0
-    if owlHVon == "true":
-        passChecks = 1
-    return passChecks
+def crate16HVstatusBcheck(owlHVon):
+    return owlHVon
 
-def crateHVdacA(dacCounts):
+def crateHVdacAcheck(dacCounts):
     passChecks = 1
     for i in dacCounts:
-        if dacCounts[i] <= 0:
+        if i <= 0:
             passChecks = 0
     return passChecks
 
-def crate16HVdacB(value):
-    passChecks = 0
+def crate16HVdacBcheck(value):
     if value > 0:
-        passChecks = 1
-    return passChecks
+        return 1
+    else:
+        return 0
