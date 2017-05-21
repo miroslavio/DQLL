@@ -26,9 +26,9 @@ def processRun(table, runlistFile):
     crate16HVdacB = table[0]["data"]["crate_16_hv_dac_b"]
     
     if durationCheck(duration) and crateHVstatusAcheck(crateHVstatusA) and crate16HVstatusBcheck(crate16HVstatusB) and crateHVdacAcheck(crateHVdacA) and crate16HVdacBcheck(crate16HVdacB):
-        runlistFile.write(" %s" %str(runNumber) + " |  1   \n")
+        runlistFile.write(" %s" %str(runNumber) + " |  1   |\n")
     else:
-        runlistFile.write(" %s" %str(runNumber) + " |  0   \n")
+        runlistFile.write(" %s" %str(runNumber) + " |  0   |\n")
         
 def dqllPassFailList(firstRun, lastRun):
 
@@ -38,6 +38,7 @@ def dqllPassFailList(firstRun, lastRun):
     # Download all the DQLL tables from firstRun to lastRun
     tables = downloadDQLL(firstRun, lastRun)
     for table in tables:
+        print table, "\n"
         processRun(table, runlistFile)
         
     
