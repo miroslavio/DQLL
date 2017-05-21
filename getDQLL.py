@@ -25,7 +25,7 @@ def processRun(table, runlistFile):
     crateHVdacA = table[0]["data"]["crate_hv_dac_a"]
     crate16HVdacB = table[0]["data"]["crate_16_hv_dac_b"]
 
-    runlistFile.write("%s" %str(runNumber))
+    runlistFile.write("%s\n" %str(runNumber))
     
 def dqllPassFailList(firstRun, lastRun):
 
