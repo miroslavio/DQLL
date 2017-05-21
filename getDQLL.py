@@ -1,8 +1,43 @@
 import sys
-from readTables import readTables
 from downloadTables import downloadDQLL
 import argparse
+from dqllChecks import *
 
+def initRunlistFile(firstRun, lastRun):
+    #Open runlist file:
+    runlistFileName = "runlist_%s-%s.txt" % (firstRun, lastRun)
+    runlistFile = open(runlistFileName, "w")
+
+    # Print list header
+    runlistFile.write("\n")
+    runlistFile.write("Run no |\n" + \
+                      "-------|\n")
+    return runlistFile
+
+def processRun(table, runlistFile):
+    #Unpack DQLL table data
+    runNumber = table[0]["data"]["run_range"][0]
+    start_time = table[0]["data"]["start_time"]
+    end_time = table[0]["data"]["end_time"]
+    duration = table[0]["data"]["duration_seconds"]
+    crateHVstatusA = table[0]["data"]["crate_hv_status_a"]
+    crate16HVstatusB = table[0]["data"]["crate_16_hv_status_b"]
+    crateHVdacA = table[0]["data"]["crate_hv_dac_a"]
+    crate16HVdacB = table[0]["data"]["crate_16_hv_dac_b"]
+
+    runlistFile.write("%s" %str(runNumber))
+    
+def dqllPassFailList(firstRun, lastRun):
+
+    # Open and initiate run-list file:
+    runlistFile = initRunlistFile(firstRun, lastRun)
+
+    # Download all the DQLL tables from firstRun to lastRun
+    tables = downloadDQLL(firstRun, lastRun)
+    for table in tables:
+        processRun(table, runlistFile)
+        
+    
 ### Get run range from user (from Lisa)###
 if __name__=="__main__":
     parser = argparse.ArgumentParser()
@@ -31,7 +66,6 @@ if __name__=="__main__":
         print "Invalid run range: first run must precede, or be equal to, last run"
         sys.exit(1)
 
-    print "Reading DQLL tables for runs %i-%i" % (firstRun, lastRun)
-    downloadDQLL(firstRun, lastRun)
-    readTables(firstRun, lastRun)
-    
+    print "Running dqllPassFailList for run range %i-%i" % (firstRun, lastRun)
+    dqllPassFailList(firstRun, lastRun)
+    sys.exit(0)
