@@ -7,7 +7,10 @@ def downloadDQLL(firstRun, lastRun):
     for i in range(firstRun, lastRun+1):
         table = db.fetch(obj_type="DQLL", run = i)
         if table: #check the downloaded table is not empty
+            print "Fetching DQLL table for run ",i, "\n"
             tables.append(table)
+        else:
+            print "DQLL Table for run ",i," NOT found\n"
 
     return tables
 

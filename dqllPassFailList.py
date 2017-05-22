@@ -5,6 +5,8 @@ from dqllChecks import *
 
 def initRunlistFile(firstRun, lastRun):
     #Open runlist file:
+
+    print "Initializing run list file.\n"
     runlistFileName = "runlist_%s-%s.txt" % (firstRun, lastRun)
     runlistFile = open(runlistFileName, "w")
 
@@ -70,6 +72,6 @@ if __name__=="__main__":
         print "Invalid run range: first run must precede, or be equal to, last run"
         sys.exit(1)
 
-    print "Running dqllPassFailList for run range %i-%i" % (firstRun, lastRun)
+    print "Running dqllPassFailList for run range %i-%i\n" % (firstRun, lastRun)
     dqllPassFailList(firstRun, lastRun)
     sys.exit(0)
