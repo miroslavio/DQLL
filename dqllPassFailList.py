@@ -12,8 +12,8 @@ def initRunlistFile(firstRun, lastRun):
 
     # Print list header
     runlistFile.write("\n")
-    runlistFile.write(" Run no | Pass |\n" + \
-                      "--------|------|\n")
+    runlistFile.write(" Run no | Time | Duration | Crate HV status A | Crate 16 HV status B | Crate HV DAC A | Crate 16 HV DAC B |\n" + \
+                      "--------|------|----------|-------------------|----------------------|----------------|-------------------|\n")
     return runlistFile
 
 def processRun(table, runlistFile):
@@ -28,10 +28,7 @@ def processRun(table, runlistFile):
     crate16HVdacB = table[0]["data"]["crate_16_hv_dac_b"]
 
     # Perform DQLL checks on run
-    if startendTimecheck(start_time, end_time) and durationCheck(duration) and crateHVstatusAcheck(crateHVstatusA) and crate16HVstatusBcheck(crate16HVstatusB) and crateHVdacAcheck(crateHVdacA) and crate16HVdacBcheck(crate16HVdacB):
-        runlistFile.write(" %s" %str(runNumber) + " |  1   |\n")
-    else:
-        runlistFile.write(" %s" %str(runNumber) + " |  0   |\n")
+    runlistFile.write(" %s |   %i  |     %i    |          %i        |           %i          |         %i      |          %i        |\n" % (str(runNumber), startendTimecheck(start_time, end_time), durationCheck(duration), crateHVstatusAcheck(crateHVstatusA), crate16HVstatusBcheck(crate16HVstatusB), crateHVdacAcheck(crateHVdacA), crate16HVdacBcheck(crate16HVdacB)))
         
 def dqllPassFailList(firstRun, lastRun):
 

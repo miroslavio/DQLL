@@ -17,7 +17,10 @@ def crateHVstatusAcheck(array):
     return 1
 
 def crate16HVstatusBcheck(owlHVon):
-    return owlHVon
+    if owlHVon:
+        return 1
+    else:
+        return 0
 
 def crateHVdacAcheck(dacCounts):
     for i in dacCounts:
